@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     outDir: '../public',
-    emptyOutDir: true,
+    emptyOutDir: false,
     chunkSizeWarningLimit: 1600
   },
   server: { host: true, port: 5173 }
