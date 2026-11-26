@@ -1,0 +1,46 @@
+{
+  "name": "stashify",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "vite build && node scripts/prepare-vercel.mjs",
+    "start": "node server/index.js",
+    "dev": "node server/index.js",
+    "test:api": "node tests/api-flow.mjs",
+    "test:ui": "node tests/purchase-flow.mjs",
+    "test:shots": "node tests/screenshots.mjs",
+    "seed:reset": "rm -f server/data/db.json && echo 'Database reset — restart the server to reseed.'",
+    "test:seller": "node tests/seller-flow.mjs",
+    "test:seller-ui": "node tests/seller-ui.mjs",
+    "doctor": "node scripts/doctor.mjs",
+    "doctor:live": "node scripts/doctor.mjs --live",
+    "test:auth-env": "node tests/auth-env.mjs"
+  },
+  "dependencies": {
+    "@clerk/express": "^2.1.89",
+    "@clerk/react": "^6.18.7",
+    "@fontsource/inter": "^5.1.0",
+    "@fontsource/sora": "^5.1.0",
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^2.11.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "framer-motion": "^11.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.22.0",
+    "multer": "^2.5.0",
+    "nodemailer": "^10.5.0",
+    "razorpay": "^2.9.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.18.5",
+    "sharp": "^0.35.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.7.0",
+    "playwright": "^1.65.0",
+    "vite": "^6.4.6"
+  }
+}

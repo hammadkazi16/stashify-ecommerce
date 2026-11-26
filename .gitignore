@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Build files
+dist/
+client/dist/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Database
+server/data/db.json
+
+# Logs
+*.log
+npm-debug.log*
+
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+
+# Private database backups
+backups/
+# Local backup of the previous media implementation
+server/media.local-backup.js
+server/scripts/

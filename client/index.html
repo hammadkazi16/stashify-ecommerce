@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/brand/stashify-icon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#14213D" />
+    <meta name="description" content="Stashify — a modern marketplace with real product photography, verified secure checkout and a seller dashboard. See it. Love it. Stash it." />
+    <title>Stashify — See it. Love it. Stash it.</title>
+    <script>
+      // Apply the saved theme before first paint to avoid a flash.
+      try { document.documentElement.dataset.theme = localStorage.getItem('stashify.theme') || 'dark'; } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      // Safety net: if the JS bundle crashes before React mounts, show a
+      // recoverable message instead of a blank white preview.
+      setTimeout(function () {
+        var root = document.getElementById('root');
+        if (root && root.childElementCount === 0) {
+          root.innerHTML =
+            '<div style="min-height:100vh;display:grid;place-items:center;background:#14213D;color:#F4EDE0;font-family:system-ui,sans-serif;padding:24px;text-align:center">' +
+            '<div><h1 style="font-size:22px;margin:0 0 10px">Stashify could not start in this preview</h1>' +
+            '<p style="opacity:.75;margin:0 0 18px">Refresh the preview, or open it in a new browser tab.</p>' +
+            '<button onclick="location.reload()" style="background:#FF6B5B;color:#14213D;border:0;border-radius:999px;padding:12px 22px;font-weight:700;cursor:pointer">Reload</button></div></div>';
+        }
+      }, 8000);
+    </script>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
