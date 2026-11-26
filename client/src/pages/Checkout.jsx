@@ -350,7 +350,7 @@ export default function Checkout() {
                 </Alert>
 
                 <div className="panel-foot">
-                  <button className="btn btn-coral btn-lg" onClick={startPayment} disabled={payBusy || !canPay}>
+                <button className="btn btn-coral btn-lg" onClick={() => { console.log('PAY BUTTON CLICKED'); startPayment(); }} disabled={payBusy || !canPay}>
                     {payBusy ? <Spinner /> : `Pay ${inr(total)} securely`}
                   </button>
                 </div>
