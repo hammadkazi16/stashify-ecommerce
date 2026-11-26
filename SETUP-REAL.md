@@ -39,7 +39,7 @@ Use the **Development** keys while testing. Use **Production** keys only when yo
 Example shape:
 
 ```env
-MONGODB_URI=mongodb+srv://stashify-app:YOUR_PASSWORD@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority
+MONGODB_URI=<your MongoDB Atlas connection string>
 MONGODB_DB=stashify
 ```
 
