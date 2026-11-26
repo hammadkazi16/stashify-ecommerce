@@ -412,30 +412,61 @@ app.post('/api/phone/verify', auth(), wrap(async (req, res) => {
   res.json({ ok: true, user: publicUser(req.user) });
 }));
 
+
 /* ------------------------------ addresses -------------------------------- */
 app.post('/api/addresses', auth(), wrap(async (req, res) => {
   const a = req.body || {};
   const line1 = norm(a.line1), city = norm(a.city), state = norm(a.state), pincode = norm(a.pincode);
+
   if (!line1 || !city || !state || !/^\d{6}$/.test(pincode)) {
     return res.status(400).json({ error: 'Address needs a street, city, state and 6-digit pincode.' });
   }
+
   const addr = {
-    id: uid('adr'), label: norm(a.label) || 'Home', name: norm(a.name) || req.user.name,
-    line1, line2: norm(a.line2), city, state, pincode,
+    id: uid('adr'),
+    label: norm(a.label) || 'Home',
+    name: norm(a.name) || req.user.name,
+    line1,
+    line2: norm(a.line2),
+    city,
+    state,
+    pincode,
     phone: norm(a.phone).replace(/\D/g, '').slice(-10) || req.user.phone,
     isDefault: (req.user.addresses || []).length === 0
   };
+
   req.user.addresses = req.user.addresses || [];
   if (a.isDefault) req.user.addresses.forEach((x) => (x.isDefault = false));
   req.user.addresses.push(addr);
-  await save();
+
+  if (storeMode() === 'mongo') {
+    await getCollection('users').updateOne(
+      { id: req.user.id },
+      { $set: { addresses: req.user.addresses } }
+    );
+  } else {
+    await save();
+  }
+
   res.json(publicUser(req.user));
 }));
 
 app.delete('/api/addresses/:id', auth(), wrap(async (req, res) => {
   req.user.addresses = (req.user.addresses || []).filter((a) => a.id !== req.params.id);
-  if (req.user.addresses.length && !req.user.addresses.some((a) => a.isDefault)) req.user.addresses[0].isDefault = true;
-  await save();
+
+  if (req.user.addresses.length && !req.user.addresses.some((a) => a.isDefault)) {
+    req.user.addresses[0].isDefault = true;
+  }
+
+  if (storeMode() === 'mongo') {
+    await getCollection('users').updateOne(
+      { id: req.user.id },
+      { $set: { addresses: req.user.addresses } }
+    );
+  } else {
+    await save();
+  }
+
   res.json(publicUser(req.user));
 }));
 
