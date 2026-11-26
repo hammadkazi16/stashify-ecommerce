@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "build": "vite build && node scripts/prepare-vercel.mjs",
+    "build": "vite build",
     "start": "node server/index.js",
     "dev": "node server/index.js",
     "test:api": "node tests/api-flow.mjs",

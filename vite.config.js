@@ -5,7 +5,7 @@ export default defineConfig({
   root: 'client',
   plugins: [react()],
   build: {
-    outDir: '../dist',
+    outDir: '../public',
     emptyOutDir: true,
     chunkSizeWarningLimit: 1600
   },
