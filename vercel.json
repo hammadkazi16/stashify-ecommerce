@@ -1,7 +1,3 @@
 ﻿{
-  "functions": {
-    "index.js": {
-      "includeFiles": "dist/**"
-    }
-  }
+  "$schema": "https://openapi.vercel.sh/vercel.json"
 }
