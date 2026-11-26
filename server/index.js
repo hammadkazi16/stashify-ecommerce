@@ -697,7 +697,7 @@ registerSellerRoutes(app, {
 if (!process.env.VERCEL) {
   app.use('/uploads', express.static(path.join(ROOT, 'uploads'), { maxAge: '1h' }));
 }
-const DIST = path.join(ROOT, 'dist');
+const DIST = path.join(ROOT, 'public');
 if (fs.existsSync(DIST)) {
   app.use(express.static(DIST, { maxAge: '1h', index: false }));
   app.get(/^(?!\/api).*/, (req, res) => res.sendFile(path.join(DIST, 'index.html')));
