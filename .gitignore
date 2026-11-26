@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Build files
+dist/
+client/dist/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Database
+server/data/db.json
+
+# Logs
+*.log
+npm-debug.log*
+
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
