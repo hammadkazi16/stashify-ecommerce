@@ -381,7 +381,15 @@ app.post('/api/phone/send', auth(), wrap(async (req, res) => {
   const phone = norm(req.body.phone || req.user.phone).replace(/\D/g, '').slice(-10);
   if (!phoneOk(phone)) return res.status(400).json({ error: 'Enter a valid 10-digit Indian mobile number.' });
   req.user.phone = phone;
+
+if (storeMode() === 'mongo') {
+  await getCollection('users').updateOne(
+    { id: req.user.id },
+    { $set: { phone } }
+  );
+} else {
   await save();
+}
   const { code } = await createOtp({ target: phone, channel: 'sms', purpose: 'phone' });
   const mode = smsMode();
   if (mode === 'demo') {
@@ -404,11 +412,28 @@ app.post('/api/phone/send', auth(), wrap(async (req, res) => {
 
 app.post('/api/phone/verify', auth(), wrap(async (req, res) => {
   const phone = norm(req.body.phone || req.user.phone).replace(/\D/g, '').slice(-10);
-  const r = await verifyOtp({ target: phone, channel: 'sms', purpose: 'phone', code: req.body.code });
+
+  const r = await verifyOtp({
+    target: phone,
+    channel: 'sms',
+    purpose: 'phone',
+    code: req.body.code
+  });
+
   if (!r.ok) return res.status(400).json({ error: r.message });
+
   req.user.phoneVerified = true;
   req.user.phone = phone;
-  await save();
+
+  if (storeMode() === 'mongo') {
+    await getCollection('users').updateOne(
+      { id: req.user.id },
+      { $set: { phone, phoneVerified: true } }
+    );
+  } else {
+    await save();
+  }
+
   res.json({ ok: true, user: publicUser(req.user) });
 }));
 
