@@ -214,4 +214,8 @@ Live Website: [stashify-ecommerce.vercel.app](https://stashify-ecommerce.vercel.
 
 ---
 
-*Stashify — Discover. Shop. Experience.*ct photos via the dashboard for a real store.
+<p align="center">
+
+**Stashify — Discover. Shop. Experience.**
+
+</p>
